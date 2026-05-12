@@ -191,26 +191,26 @@ export default {
     },
     contactSeller() {
       alert('正在跳转聊天界面...')
-      // TODO: 跳转聊天页
+      
     },
     toggleFavorite() {
       this.isFavorite = !this.isFavorite
       alert(this.isFavorite ? '已加入收藏' : '已取消收藏')
-      // TODO: 调用收藏 API
+      
     },
     addToCart() {
       alert('已加入购物车')
-      // TODO: 调用购物车 API
+   
     },
     buyNow() {
       alert('正在创建订单...')
-      // TODO: 跳转订单确认页
+      
     },
     goToCart() {
       this.$router.push('/cart')
     },
     goToSellerPage() {
-      // TODO: 跳转卖家主页 /seller/${this.product.sellerId}
+      
     },
     shareProduct() {
       if (navigator.share) {
