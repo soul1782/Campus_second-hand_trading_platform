@@ -15,6 +15,8 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class DataInitializer implements CommandLineRunner {
@@ -37,6 +39,7 @@ public class DataInitializer implements CommandLineRunner {
     @Override
     public void run(String... args) {
         if (productRepository.count() == 0) {
+            // 1. 先创建或获取用户
             User testUser = userRepository.findById(1L).orElse(null);
             if (testUser == null) {
                 testUser = new User();
@@ -57,6 +60,7 @@ public class DataInitializer implements CommandLineRunner {
 
             Long userId = testUser.getUserId();
 
+            // 2. 创建钱包
             if (walletRepository.findByUserId(userId).isEmpty()) {
                 Wallet wallet = new Wallet();
                 wallet.setUserId(userId);
@@ -68,23 +72,37 @@ public class DataInitializer implements CommandLineRunner {
                 walletRepository.save(wallet);
             }
 
-            if (orderRepository.count() == 0) {
-                orderRepository.save(createOrder(userId, userId, 1L, "CT202605100001", new BigDecimal("4200"), (byte) 0));
-                orderRepository.save(createOrder(userId, userId, 2L, "CT202605100002", new BigDecimal("35"), (byte) 1));
-                orderRepository.save(createOrder(userId, userId, 3L, "CT202605100003", new BigDecimal("89"), (byte) 2));
-                orderRepository.save(createOrder(userId, userId, 4L, "CT202605100004", new BigDecimal("850"), (byte) 3));
-                orderRepository.save(createOrder(userId, userId, 5L, "CT202605100005", new BigDecimal("499"), (byte) 3));
-            }
+            // 3. 【修改】先创建产品，并保存产品ID
+            List<Long> productIds = new ArrayList<>();
 
-            productRepository.save(createProduct(userId, 1, "iPad Pro 2021", new BigDecimal("4200"), (byte) 2, "主校区"));
-            productRepository.save(createProduct(userId, 2, "考研英语红宝书", new BigDecimal("35"), (byte) 3, "主校区"));
-            productRepository.save(createProduct(userId, 3, "小米台灯 1S", new BigDecimal("89"), (byte) 2, "主校区"));
-            productRepository.save(createProduct(userId, 4, "捷安特山地车", new BigDecimal("850"), (byte) 5, "主校区"));
-            productRepository.save(createProduct(userId, 6, "Nike Dunk 低帮", new BigDecimal("499"), (byte) 4, "主校区"));
+            Product p1 = createProduct(userId, 1, "iPad Pro 2021", new BigDecimal("4200"), (byte) 2, "主校区");
+            productIds.add(productRepository.save(p1).getProductId());
+
+            Product p2 = createProduct(userId, 2, "考研英语红宝书", new BigDecimal("35"), (byte) 3, "主校区");
+            productIds.add(productRepository.save(p2).getProductId());
+
+            Product p3 = createProduct(userId, 3, "小米台灯 1S", new BigDecimal("89"), (byte) 2, "主校区");
+            productIds.add(productRepository.save(p3).getProductId());
+
+            Product p4 = createProduct(userId, 4, "捷安特山地车", new BigDecimal("850"), (byte) 5, "主校区");
+            productIds.add(productRepository.save(p4).getProductId());
+
+            Product p5 = createProduct(userId, 6, "Nike Dunk 低帮", new BigDecimal("499"), (byte) 4, "主校区");
+            productIds.add(productRepository.save(p5).getProductId());
+
             productRepository.save(createProduct(userId, 1, "Switch 游戏卡", new BigDecimal("210"), (byte) 2, "主校区"));
             productRepository.save(createProduct(userId, 1, "AirPods Pro 2", new BigDecimal("998"), (byte) 3, "主校区"));
             productRepository.save(createProduct(userId, 1, "MacBook Air M1", new BigDecimal("4500"), (byte) 4, "主校区"));
             productRepository.save(createProduct(userId, 1, "佳能 G7X Mark III", new BigDecimal("3200"), (byte) 2, "主校区"));
+
+            // 4. 【修改】最后创建订单，使用实际存在的产品ID
+            if (orderRepository.count() == 0) {
+                orderRepository.save(createOrder(userId, userId, productIds.get(0), "CT202605100001", new BigDecimal("4200"), (byte) 0));
+                orderRepository.save(createOrder(userId, userId, productIds.get(1), "CT202605100002", new BigDecimal("35"), (byte) 1));
+                orderRepository.save(createOrder(userId, userId, productIds.get(2), "CT202605100003", new BigDecimal("89"), (byte) 2));
+                orderRepository.save(createOrder(userId, userId, productIds.get(3), "CT202605100004", new BigDecimal("850"), (byte) 3));
+                orderRepository.save(createOrder(userId, userId, productIds.get(4), "CT202605100005", new BigDecimal("499"), (byte) 3));
+            }
         }
     }
 

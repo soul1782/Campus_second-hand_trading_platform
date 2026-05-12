@@ -79,6 +79,16 @@
           <polyline points="9 18 15 12 9 6"/>
         </svg>
       </div>
+      <div class="menu-item" @click="$router.push('/my-products')">
+  <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="#2b6aff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M20 7h-3a2 2 0 01-2-2V2"/><path d="M9 14l3 3 6-6"/>
+    <path d="M20 13v6a2 2 0 01-2 2H6a2 2 0 01-2-2V5a2 2 0 012-2h6"/>
+  </svg>
+  <span class="menu-text">我发布的</span>
+  <svg class="menu-arrow" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="9 18 15 12 9 6"/>
+  </svg>
+</div>
       <div class="menu-item">
         <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="#2b6aff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="10"/>
@@ -139,15 +149,15 @@
         </svg>
         <span>分类</span>
       </div>
-      <div class="nav-item nav-publish">
-        <div class="publish-btn">
-          <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="12" y1="5" x2="12" y2="19"/>
-            <line x1="5" y1="12" x2="19" y2="12"/>
-          </svg>
-        </div>
-        <span>发布</span>
-      </div>
+      <div class="nav-item nav-publish" @click="$router.push('/publish')">
+  <div class="publish-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="12" y1="5" x2="12" y2="19"/>
+      <line x1="5" y1="12" x2="19" y2="12"/>
+    </svg>
+  </div>
+  <span>发布</span>
+</div>
       <div class="nav-item">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="9" cy="21" r="1"/>
