@@ -1,25 +1,20 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Login from '../views/Login.vue'
-import Register from '../views/Register.vue'
-import Home from '../views/Home.vue'
 import My from '../views/My.vue'
 import Settings from '../views/Settings.vue'
+
+const LoginPlaceholder = { template: '<div>Login Placeholder</div>' }
+const HomePlaceholder = { template: '<div>Home Placeholder</div>' }
 
 const routes = [
   {
     path: '/login',
     name: 'Login',
-    component: Login
-  },
-  {
-    path: '/register',
-    name: 'Register',
-    component: Register
+    component: LoginPlaceholder
   },
   {
     path: '/',
     name: 'Home',
-    component: Home,
+    component: HomePlaceholder,
     meta: { requiresAuth: true }
   },
   {
