@@ -1,9 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Login from '../views/Login.vue'
-import Register from '../views/Register.vue'
-import Home from '../views/Home.vue'
-import My from '../views/My.vue'
-import Settings from '../views/Settings.vue'
+
+const HomePlaceholder = { template: '<div style="padding:50px;text-align:center">Home</div>' }
 
 const routes = [
   {
@@ -12,26 +10,9 @@ const routes = [
     component: Login
   },
   {
-    path: '/register',
-    name: 'Register',
-    component: Register
-  },
-  {
     path: '/',
     name: 'Home',
-    component: Home,
-    meta: { requiresAuth: true }
-  },
-  {
-    path: '/my',
-    name: 'My',
-    component: My,
-    meta: { requiresAuth: true }
-  },
-  {
-    path: '/settings',
-    name: 'Settings',
-    component: Settings,
+    component: HomePlaceholder,
     meta: { requiresAuth: true }
   }
 ]
