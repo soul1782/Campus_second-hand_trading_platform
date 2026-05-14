@@ -40,4 +40,6 @@ frontend/node_modules/
 
 ### Project specific ###
 maven.zip
-image1.png
+### Frontend build ###
+frontend/dist/
+frontend/node_modules/
