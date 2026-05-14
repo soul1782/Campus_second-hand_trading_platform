@@ -45,23 +45,23 @@
       </div>
     </div>
 
-    <!-- 订单状态 -->
+    <!-- 订单状态（添加点击跳转） -->
     <div class="order-section">
       <div class="section-title">我的订单</div>
       <div class="order-grid">
-        <div class="order-item">
+        <div class="order-item" @click="goToOrders(0)">
           <span class="order-count">{{ profile.pendingPaymentCount || 0 }}</span>
           <span class="order-label">待付款</span>
         </div>
-        <div class="order-item">
+        <div class="order-item" @click="goToOrders(1)">
           <span class="order-count">{{ profile.pendingShipCount || 0 }}</span>
           <span class="order-label">待发货</span>
         </div>
-        <div class="order-item">
+        <div class="order-item" @click="goToOrders(2)">
           <span class="order-count">{{ profile.pendingReceiveCount || 0 }}</span>
           <span class="order-label">待收货</span>
         </div>
-        <div class="order-item">
+        <div class="order-item" @click="goToOrders(3)">
           <span class="order-count">{{ profile.completedCount || 0 }}</span>
           <span class="order-label">已完成</span>
         </div>
@@ -79,6 +79,32 @@
           <polyline points="9 18 15 12 9 6"/>
         </svg>
       </div>
+
+      <div class="menu-item" @click="$router.push('/my-products')">
+        <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="#2b6aff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 7h-3a2 2 0 01-2-2V2"/><path d="M9 14l3 3 6-6"/>
+          <path d="M20 13v6a2 2 0 01-2 2H6a2 2 0 01-2-2V5a2 2 0 012-2h6"/>
+        </svg>
+        <span class="menu-text">我发布的</span>
+        <svg class="menu-arrow" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 18 15 12 9 6"/>
+        </svg>
+      </div>
+
+      <!-- ✅ 新增：卖家订单管理入口 -->
+      <div class="menu-item" @click="$router.push('/seller-orders')">
+        <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="#2b6aff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="4" width="18" height="18" rx="2"/>
+          <circle cx="9" cy="10" r="1"/>
+          <circle cx="15" cy="10" r="1"/>
+          <path d="M6 16c2 2 4 2 6 0s4-2 6 0"/>
+        </svg>
+        <span class="menu-text">卖家订单管理</span>
+        <svg class="menu-arrow" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 18 15 12 9 6"/>
+        </svg>
+      </div>
+
       <div class="menu-item">
         <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="#2b6aff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="10"/>
@@ -89,6 +115,7 @@
           <polyline points="9 18 15 12 9 6"/>
         </svg>
       </div>
+
       <div class="menu-item">
         <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="#2b6aff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
@@ -98,6 +125,7 @@
           <polyline points="9 18 15 12 9 6"/>
         </svg>
       </div>
+
       <div class="menu-item" @click="$router.push('/settings')">
         <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="#2b6aff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="3"/>
@@ -108,6 +136,7 @@
           <polyline points="9 18 15 12 9 6"/>
         </svg>
       </div>
+
       <div class="menu-item" @click="logout">
         <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="#ff4d4f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/>
@@ -139,7 +168,7 @@
         </svg>
         <span>分类</span>
       </div>
-      <div class="nav-item nav-publish">
+      <div class="nav-item nav-publish" @click="$router.push('/publish')">
         <div class="publish-btn">
           <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <line x1="12" y1="5" x2="12" y2="19"/>
@@ -196,6 +225,10 @@ export default {
       localStorage.removeItem('token')
       localStorage.removeItem('user')
       this.$router.push('/login')
+    },
+    // ✅ 新增：跳转到订单页面，并带上状态参数
+    goToOrders(status) {
+      this.$router.push(`/orders?status=${status}`)
     }
   },
   mounted() {
