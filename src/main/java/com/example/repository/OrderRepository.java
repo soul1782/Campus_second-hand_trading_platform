@@ -11,7 +11,6 @@ import java.util.List;
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long> {
 
-    // ========== 原有方法 ==========
     List<Order> findByBuyerId(Long buyerId);
     List<Order> findByBuyerIdAndStatus(Long buyerId, Byte status);
     long countByBuyerIdAndStatus(Long buyerId, Byte status);
